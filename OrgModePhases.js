@@ -1,4 +1,4 @@
-// WARNING: This currently only works in text mode. It technically works in structure mode, but on the wrong node.
+// NOTE: This currently only works in text mode.
 
 // NOTE: Labels can be expanded here. I imagine labels might have more intermediate phases like PENDING or WAITING.
 // I've included spaces in the labels in case you want to use other delimeters without changing the code
@@ -7,6 +7,9 @@ var labels = ['TODO ', 'DONE '];
 var labelsRegex = new RegExp('^(' + labels.join('|') + ')');
 
 $(document).bind('keydown', function(event) {
+    if($('.textMode').length == 0) {
+	return -1;
+    }
     var theKey = event.which;
     // Since this will run on every keydown, I'm doing my best to make sure this is as performant as possible by excluding as many cases as I can outright
     // Is the shift key held down?
