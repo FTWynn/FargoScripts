@@ -7,6 +7,7 @@ var labels = ['TODO ', 'DONE '];
 var labelsRegex = new RegExp('^(' + labels.join('|') + ')');
 
 $(document).bind('keydown', function(event) {
+    // Bail if not in text mode
     if($('.textMode').length == 0) {
 	return -1;
     }
