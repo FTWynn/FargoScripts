@@ -1,3 +1,5 @@
+// WARNING: This currently only works in text mode. It technically works in structure mode, but on the wrong node.
+
 // NOTE: Labels can be expanded here. I imagine labels might have more intermediate phases like PENDING or WAITING.
 // I've included spaces in the labels in case you want to use other delimeters without changing the code
 var labels = ['TODO ', 'DONE '];
