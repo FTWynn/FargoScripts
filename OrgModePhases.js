@@ -1,0 +1,66 @@
+// Trying to get some org-mode like behavior back in here
+
+// NOTE: Labels and priorities can be expanded here. I imagine labels might have more intermediate phases like PENDING or WAITING.
+var labels = ['TODO ', 'DONE '];
+var labelsRegex = new RegExp('^(' + labels.join('|') + ')');
+var priorities = ['[#A] ', '[#B] ', '[#C] '];
+var priRegex = new RegExp(labelsRegex.source + '?(' + priorities.join('|') + ')');
+
+$(document).bind('keydown', function(event) {
+    var theKey = event.which;
+    // Since this will run on every keydown, I'm doing my best to make sure this is as performant as possible by excluding as many cases as I can outright
+    // Is the shift key held down?
+    if(event.shiftKey && !event.ctrlKey) {
+	// Is this an arrow key?
+        if(theKey === 37 || theKey === 39) {
+	    var currentElement = $('div.active .concord-cursor > div > div');
+	    var currentText = currentElement.text();
+	    
+	    //Check which we're changing, priorities or labels
+	    if(theKey === 37 || theKey === 39) {
+		//Labels stuff
+		// Is there no label at all?
+		if(!labelsRegex.test(currentText)) {
+		    if(theKey === 37) {
+			currentElement.text(labels[labels.length - 1] + currentText);
+		    } else {
+			currentElement.text(labels[0] + currentText);
+		    }
+		} else {
+		    //Find the label and increment/decrement
+		    var parsedLabel = labelsRegex.exec(currentText)[0];
+		    var currentLabelIndex = labels.indexOf(parsedLabel);
+		    if(theKey === 37) {
+			//Left Arrow
+			if(currentLabelIndex - 1 < 0) {
+			    currentElement.text(currentText.replace(labelsRegex, ''));
+			} else {
+			    currentElement.text(currentText.replace(labelsRegex, labels[currentLabelIndex - 1]));
+			}
+		    } else {
+			// Right Arrow
+			if(currentLabelIndex + 1 >= labels.length) {
+			    currentElement.text(currentText.replace(labelsRegex, ''));
+			} else {
+			    currentElement.text(currentText.replace(labelsRegex, labels[currentLabelIndex + 1]));
+			}
+		    }
+		}
+	    } else {
+
+		//Priorities stuff... thoguh this may not be doable with the cursor movement the way it is in the browser
+	    }
+	    //currentElement.text(newText);
+	    // 
+        } else {
+            //Keeping this here just in case
+        }
+    }
+});
+
+/*
+37 - left
+38 - up
+39 - right
+40 - down
+*/
