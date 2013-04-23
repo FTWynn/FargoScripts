@@ -1,10 +1,8 @@
-// Trying to get some org-mode like behavior back in here
-
-// NOTE: Labels and priorities can be expanded here. I imagine labels might have more intermediate phases like PENDING or WAITING.
+// NOTE: Labels can be expanded here. I imagine labels might have more intermediate phases like PENDING or WAITING.
+// I've included spaces in the labels in case you want to use other delimeters without changing the code
 var labels = ['TODO ', 'DONE '];
+
 var labelsRegex = new RegExp('^(' + labels.join('|') + ')');
-var priorities = ['[#A] ', '[#B] ', '[#C] '];
-var priRegex = new RegExp(labelsRegex.source + '?(' + priorities.join('|') + ')');
 
 $(document).bind('keydown', function(event) {
     var theKey = event.which;
@@ -46,15 +44,8 @@ $(document).bind('keydown', function(event) {
 			}
 		    }
 		}
-	    } else {
-
-		//Priorities stuff... thoguh this may not be doable with the cursor movement the way it is in the browser
 	    }
-	    //currentElement.text(newText);
-	    // 
-        } else {
-            //Keeping this here just in case
-        }
+        } 
     }
 });
 
